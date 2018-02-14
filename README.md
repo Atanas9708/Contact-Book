@@ -1,4 +1,4 @@
-This project is built for educationoal purposes and in particular practicing Redux.
+This project is built for educational purposes and in particular practicing Redux.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
