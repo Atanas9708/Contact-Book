@@ -28,7 +28,6 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.loginSuccess) {
       this.props.redirect();
       this.props.history.push('/');

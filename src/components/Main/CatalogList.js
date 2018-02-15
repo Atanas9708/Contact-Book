@@ -13,6 +13,7 @@ const CatalogList = ({ contacts, selectedId, clickHandler }) => {
             key={c._id}
             firstName={c.firstName}
             lastName={c.lastName}
+            image={c.image}
             selected={c._id === selectedId}
             onClick={() => clickHandler(c._id)}
           />

@@ -58,14 +58,29 @@ function create(payload) {
     },
     body: JSON.stringify(payload)
   })
-  .then(res => {
-    return res.json();
+    .then(res => {
+      return res.json();
+    })
+}
+
+function edit(contactId, payload) {
+  return fetch(url + 'appdata/' + appKey + '/contacts/' + contactId, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Kinvey ' + localStorage.getItem('authtoken'),
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
   })
+    .then(res => {
+      return res.json();
+    })
 }
 
 export {
   fetchContacts,
   create,
+  edit,
   register,
   login
 }

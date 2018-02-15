@@ -16,6 +16,8 @@ const store = createStore(combineReducers(rootReducer), applyMiddleware(thunk));
 
 store.dispatch(fetchContactsAction());
 
+// store.subscribe(() => console.log(store.getState()));
+
 ReactDOM.render((
   <Provider store={store}>
     <Router>

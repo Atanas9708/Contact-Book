@@ -101,6 +101,34 @@ a {
   color: #fff;
 }
 
+.edit {
+  color: #fff;
+  background-color: green;
+  padding: 10px;
+  display: block;
+  width: 50px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.delete {
+  color: #fff;
+  background-color: red;
+  padding: 10px;
+  display: block;
+  width: 50px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.controls {
+  display: inline-block;
+}
+
+.controls ul {
+  padding-left: 0;
+}
+
 h1 a {
   color: #fff;
 }

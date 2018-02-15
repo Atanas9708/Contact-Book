@@ -1,5 +1,5 @@
-import { fetchContacts, create } from './../api/remote';
-import { FETCH_SUCCESS, AJAX_BEGIN, AJAX_ERROR, CREATE_SUCCESS } from './actionTypes';
+import { fetchContacts, create, edit } from './../api/remote';
+import { FETCH_SUCCESS, AJAX_BEGIN, AJAX_ERROR, CREATE_SUCCESS, EDIT_SUCCESS } from './actionTypes';
 
 
 function fetchSuccess(data) {
@@ -16,6 +16,29 @@ function createSuccess(contact) {
   };
 }
 
+function editSuccess(contact) {
+  return {
+    type: EDIT_SUCCESS,
+    contact
+  };
+}
+
+export function editAction(contactId, payload) {
+  return (dispatch) => {
+    return edit(contactId, payload)
+      .then(json => {
+        if (!json.error) {
+          dispatch(editSuccess(json));
+        } else {
+          dispatch({
+            type: AJAX_ERROR,
+            json
+          });
+        }
+      })
+  }
+}
+
 
 export function createAction(payload) {
   return (dispatch) => {
@@ -23,6 +46,11 @@ export function createAction(payload) {
     .then(json => {
       if (!json.error) {
         dispatch(createSuccess(json));
+      } else {
+        dispatch({
+          type: AJAX_ERROR,
+          json
+        });
       }
     })
   }

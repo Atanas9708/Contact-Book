@@ -1,52 +1,59 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { createAction } from './../../actions/contactAction';
+import { editAction } from './../../actions/contactAction';
 import { connect } from 'react-redux';
 
-class Create extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      image: '',
       firstName: '',
       lastName: '',
-      phone: '',
-      email: ''
+      image: '',
+      email: '',
+      phone: ''
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+  componentWillMount() {
+    const contactId = this.props.match.params.id;
+    let contact = this.props.contacts.filter(c => c._id === contactId)[0];
+    this.setState({
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      image: contact.image,
+      email: contact.email,
+      phone: contact.phone
+    });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
+    const contactId = this.props.match.params.id;
     let payload = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       image: this.state.image,
       email: this.state.email,
-      phone: this.state.phone,
+      phone: this.state.phone
     };
 
-    // if (!playload.firstName !== undefined || !payload.firstName !== null || !payload.firstName.length < 5) {
-
-    // }
-
-    this.props.create(payload).then(() => {
-      this.props.history.push('/');
-    })
+    this.props.edit(contactId, payload).then(() => this.props.history.push('/'));
   }
 
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
   render() {
     return (
       <div className="box">
-        <h1>Create</h1>
+        <h1>Edit</h1>
         <div className="content">
           <form id="register-form" onSubmit={this.onSubmit}>
             <label htmlFor="newUsername">First Name</label>
@@ -67,15 +74,16 @@ class Create extends Component {
   }
 }
 
-
 function mapStateToProps(state) {
-  return { };
+  return {
+    contacts: state.contacts
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    create: (payload) => dispatch(createAction(payload))
+    edit: (contactId, payload) => dispatch(editAction(contactId, payload))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Create));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Edit));
