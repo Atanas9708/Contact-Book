@@ -4,6 +4,7 @@ import './index.css';
 import './style/site.css';
 import './style/contacts.css';
 import App from './App';
+import '../node_modules/toastr/build/toastr.min.css';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './reducers/rootReducer';
 import { fetchContactsAction } from './actions/contactAction';

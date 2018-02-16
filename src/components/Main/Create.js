@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { createAction } from './../../actions/contactAction';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 
 class Create extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Create extends Component {
     // }
 
     this.props.create(payload).then(() => {
+      toastr.success('Contact added successfully!');
       this.props.history.push('/');
     })
   }

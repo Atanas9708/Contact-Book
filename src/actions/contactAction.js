@@ -1,5 +1,5 @@
-import { fetchContacts, create, edit } from './../api/remote';
-import { FETCH_SUCCESS, AJAX_BEGIN, AJAX_ERROR, CREATE_SUCCESS, EDIT_SUCCESS } from './actionTypes';
+import { fetchContacts, create, edit, deleteContact } from './../api/remote';
+import { FETCH_SUCCESS, AJAX_BEGIN, AJAX_ERROR, CREATE_SUCCESS, EDIT_SUCCESS, DELETE_SUCCESS } from './actionTypes';
 
 
 function fetchSuccess(data) {
@@ -23,6 +23,13 @@ function editSuccess(contact) {
   };
 }
 
+function deleteSuccess(id) {
+  return {
+    type: DELETE_SUCCESS,
+    id
+  };
+}
+
 export function editAction(contactId, payload) {
   return (dispatch) => {
     return edit(contactId, payload)
@@ -39,20 +46,36 @@ export function editAction(contactId, payload) {
   }
 }
 
+export function deleteAction(contactId) {
+  return (dispatch) => {
+    return deleteContact(contactId)
+      .then(json => {
+        if (!json.error) {
+          dispatch(deleteSuccess(contactId));
+        } else {
+          dispatch({
+            type: AJAX_ERROR,
+            json
+          });
+        }
+      })
+  }
+}
+
 
 export function createAction(payload) {
   return (dispatch) => {
     return create(payload)
-    .then(json => {
-      if (!json.error) {
-        dispatch(createSuccess(json));
-      } else {
-        dispatch({
-          type: AJAX_ERROR,
-          json
-        });
-      }
-    })
+      .then(json => {
+        if (!json.error) {
+          dispatch(createSuccess(json));
+        } else {
+          dispatch({
+            type: AJAX_ERROR,
+            json
+          });
+        }
+      })
   }
 }
 

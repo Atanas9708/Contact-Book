@@ -15,7 +15,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      isLogged: false
+      isLogged: false,
+      loading: false
     };
 
     this.logout = this.logout.bind(this);
@@ -34,11 +35,11 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loginSuccess) {
+    console.log(nextProps);
+    if (nextProps.loginSuccess || nextProps.registerSuccess) {
       this.setState({ isLogged: true });
     }
   }
-
 
   render() {
     return (
@@ -61,7 +62,8 @@ class App extends Component {
 
 function mapState(state) {
   return {
-    loginSuccess: state.login.success
+    loginSuccess: state.login.success,
+    registerSuccess: state.register.success
   };
 }
 

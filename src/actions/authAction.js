@@ -1,5 +1,12 @@
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, REDIRECTED, LOGIN_FAIL, REGISTER_FAIL } from './actionTypes';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, REDIRECTED, LOGIN_FAIL, REGISTER_FAIL, AJAX_BEGIN } from './actionTypes';
 import { register, login } from './../api/remote';
+
+
+function beginAjax() {
+  return {
+    type: AJAX_BEGIN
+  };
+}
 
 function registerSuccess() {
   return {
@@ -35,6 +42,7 @@ export function redirect() {
 
 export function registerAction(username, password) {
   return (dispatch) => {
+    dispatch(beginAjax());
     return register(username, password)
       .then(json => {
         if (!json.error) {
@@ -50,6 +58,7 @@ export function registerAction(username, password) {
 
 export function loginAction(username, password) {
   return (dispatch) => {
+    dispatch(beginAjax());
     return login(username, password)
       .then(json => {
         if (!json.error) {

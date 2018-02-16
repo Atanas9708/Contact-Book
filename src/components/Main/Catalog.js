@@ -38,7 +38,8 @@ class Catalog extends Component {
 
 function mapStateToProps(state) {
   return {
-    contacts: state.contacts
+    contacts: state.contacts,
+    loading: state.contacts.loading
   };
 }
 

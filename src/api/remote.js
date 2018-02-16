@@ -77,10 +77,24 @@ function edit(contactId, payload) {
     })
 }
 
+function deleteContact(contactId) {
+  return fetch(url + 'appdata/' + appKey + '/contacts/' + contactId, {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Kinvey ' + localStorage.getItem('authtoken'),
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(res => {
+      return res.json();
+    })
+}
+
 export {
   fetchContacts,
   create,
   edit,
+  deleteContact,
   register,
   login
 }

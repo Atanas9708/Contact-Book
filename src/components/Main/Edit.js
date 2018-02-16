@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { editAction } from './../../actions/contactAction';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 
 class Edit extends Component {
   constructor(props) {
@@ -42,7 +43,10 @@ class Edit extends Component {
       phone: this.state.phone
     };
 
-    this.props.edit(contactId, payload).then(() => this.props.history.push('/'));
+    this.props.edit(contactId, payload).then(() => {
+      toastr.success('Contact edited successfully!');
+      this.props.history.push('/');
+    });
   }
 
 
@@ -66,7 +70,7 @@ class Edit extends Component {
             <input onChange={this.onChange} name="email" value={this.state.email} id="email" type="text" />
             <label htmlFor="newPassRep">Phone Number</label>
             <input onChange={this.onChange} name="phone" value={this.state.phone} id="phone" type="number" />
-            <input type="submit" value="Create" />
+            <input type="submit" value="Edit" />
           </form>
         </div>
       </div>
