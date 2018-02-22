@@ -20,7 +20,10 @@ class Details extends Component {
 
   render() {
     const { user } = this.props;
-    const isLogged = localStorage.getItem('authtoken') !== null;
+    let isAuthor = false;
+    if (localStorage.getItem('creator') && user) {
+      isAuthor = localStorage.getItem('creator') === user['creator'];
+    }
 
     return (
       <div id="details">
@@ -42,7 +45,7 @@ class Details extends Component {
                 <span className="info-line">&#9742; {user.phone}</span>
                 <span className="info-line">&#9993; {user.email}</span>
               </div>
-              {isLogged &&
+              {isAuthor &&
                 <div className="controls">
                   <ul>
                     <li><Link className="edit" to={'/edit/' + user._id}>Edit</Link></li>
@@ -58,7 +61,7 @@ class Details extends Component {
 }
 
 function mapStateToProps(state) {
-  return { };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {

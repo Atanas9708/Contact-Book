@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Preloader from './../common/Preloader';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerAction, redirect } from './../../actions/authAction';
+import { registerAction, redirect, clearErrors } from './../../actions/authAction';
 import toastr from 'toastr';
 
 class Register extends Component {
@@ -37,6 +37,7 @@ class Register extends Component {
       this.props.history.push('/');
     } else if (nextProps.error) {
       toastr.error(nextProps.error);
+      this.props.clear();
     }
   }
 
@@ -75,7 +76,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     register: (username, password) => dispatch(registerAction(username, password)),
-    redirect: () => dispatch(redirect())
+    redirect: () => dispatch(redirect()),
+    clear: () => dispatch(clearErrors())
   };
 }
 

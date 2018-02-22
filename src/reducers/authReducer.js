@@ -1,6 +1,6 @@
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, REDIRECTED, LOGIN_FAIL, REGISTER_FAIL, AJAX_BEGIN } from './../actions/actionTypes';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, REDIRECTED, LOGIN_FAIL, REGISTER_FAIL, AJAX_BEGIN, CLEAR_ERRORS } from './../actions/actionTypes';
 
-export function registerReducer(state = { success: false, errors: '', loading: false }, action) {
+export function registerReducer(state = { success: false, errors: false, loading: false }, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
       return Object.assign({}, state, { success: true, loading: false });
@@ -10,12 +10,14 @@ export function registerReducer(state = { success: false, errors: '', loading: f
       return Object.assign({}, state, { errors: action.err, loading: false });
     case AJAX_BEGIN:
       return Object.assign({}, state, { loading: true });
+    case CLEAR_ERRORS:
+      return Object.assign({}, state, { errors: false });
     default:
       return state;
   }
 }
 
-export function loginReducer(state = { success: false, errors: '', loading: false }, action) {
+export function loginReducer(state = { success: false, errors: false, loading: false }, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return Object.assign({}, state, { success: true, loading: false });
@@ -25,6 +27,8 @@ export function loginReducer(state = { success: false, errors: '', loading: fals
       return Object.assign({}, state, { errors: action.err, loading: false });
     case AJAX_BEGIN:
       return Object.assign({}, state, { loading: true });
+    case CLEAR_ERRORS:
+      return Object.assign({}, state, { errors: false });
     default:
       return state;
   }

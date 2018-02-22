@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, REDIRECTED, LOGIN_FAIL, REGISTER_FAIL, AJAX_BEGIN } from './actionTypes';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, REDIRECTED, LOGIN_FAIL, REGISTER_FAIL, AJAX_BEGIN, CLEAR_ERRORS } from './actionTypes';
 import { register, login } from './../api/remote';
 
 
@@ -40,12 +40,19 @@ export function redirect() {
   };
 }
 
+export function clearErrors() {
+  return {
+    type: CLEAR_ERRORS
+  }
+}
+
 export function registerAction(username, password) {
   return (dispatch) => {
     dispatch(beginAjax());
     return register(username, password)
       .then(json => {
         if (!json.error) {
+          localStorage.setItem('creator', json._acl.creator);
           localStorage.setItem('authtoken', json._kmd.authtoken);
           localStorage.setItem('username', json.username);
           dispatch(registerSuccess());
@@ -62,6 +69,7 @@ export function loginAction(username, password) {
     return login(username, password)
       .then(json => {
         if (!json.error) {
+          localStorage.setItem('creator', json._acl.creator);
           localStorage.setItem('authtoken', json._kmd.authtoken);
           localStorage.setItem('username', json.username);
           dispatch(loginSuccess());

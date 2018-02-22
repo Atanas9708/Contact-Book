@@ -32,6 +32,7 @@ class Create extends Component {
       image: this.state.image,
       email: this.state.email,
       phone: this.state.phone,
+      creator: localStorage.getItem('creator')
     };
 
     // if (!playload.firstName !== undefined || !payload.firstName !== null || !payload.firstName.length < 5) {

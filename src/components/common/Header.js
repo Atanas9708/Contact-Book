@@ -14,6 +14,8 @@ const Header = ({ isLogged, logout }) => (
           </div>)}
         {isLogged && (
           <div>
+            <li>Welcome, {localStorage.getItem('username')}</li>
+            <li><NavLink to='/myContacts'>My Contacts</NavLink></li>
             <li><NavLink to='/create'>Create</NavLink></li>
             <li><a onClick={logout} href="javascript:void(0)">Logout</a></li>
           </div>

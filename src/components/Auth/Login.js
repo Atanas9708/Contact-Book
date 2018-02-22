@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Preloader from './../common/Preloader';
 import { connect } from 'react-redux';
-import { loginAction, redirect } from './../../actions/authAction';
+import { loginAction, redirect, clearErrors } from './../../actions/authAction';
 import { withRouter } from 'react-router-dom';
 import toastr from 'toastr';
 
@@ -34,6 +34,7 @@ class Login extends Component {
       this.props.history.push('/');
     } else if (nextProps.error) {
       toastr.error(nextProps.error);
+      this.props.clear();
     }
   }
 
@@ -70,7 +71,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     login: (username, password) => dispatch(loginAction(username, password)),
-    redirect: () => dispatch(redirect())
+    redirect: () => dispatch(redirect()),
+    clear: () => dispatch(clearErrors())
   };
 }
 
